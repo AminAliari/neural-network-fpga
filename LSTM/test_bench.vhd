@@ -13,6 +13,8 @@ entity test_bench is
 end test_bench;
 
 architecture arch of test_bench is
+	constant n : integer := 20;
+
 	component Neural_netowrk is
 	generic (
 		n : integer := 20
@@ -20,7 +22,7 @@ architecture arch of test_bench is
 
 	port (
 		clk : in std_logic;
-		xt_s: in matrix_1_4_array (0 to 19, 0 to 0);
+		xt_s: in matrix_1_4_array (0 to n-1, 0 to 0);
 		uc, uo, ui, uf: in matrix_8_8;
 		wc, wo, wi, wf: in matrix_4_8;
 		bo, bi, bf, bc: in matrix_1_8;
@@ -32,7 +34,7 @@ end component;
 
 signal clk, start, ready : std_logic;
 signal classify_out: matrix_1_2;
-signal xt_s:  matrix_1_4_array (0 to 19, 0 to 0);
+signal xt_s:  matrix_1_4_array (0 to n-1, 0 to 0);
 signal uc, uo, ui, uf: matrix_8_8;
 signal wc, wo, wi, wf: matrix_4_8;
 signal bo, bi, bf, bc: matrix_1_8;
@@ -59,7 +61,7 @@ begin
 	variable v_uc, v_uo, v_ui, v_uf:matrix_8_8;
 	variable v_wc, v_wo, v_wi, v_wf:matrix_4_8;
 	variable v_bo, v_bi, v_bf, v_bc: matrix_1_8;
-	variable v_xt_s: matrix_1_4_array (0 to 19, 0 to 0);
+	variable v_xt_s: matrix_1_4_array (0 to n-1, 0 to 0);
 	variable v_biases :  matrix_1_2;
 	variable v_weight:  matrix_8_2;
 
@@ -186,7 +188,7 @@ begin
 			reading_type := t_xt;
 
 			when t_xt =>
-			for i in 0 to 19 loop
+			for i in 0 to n-1 loop
 				readline (f1, l1);
 				for j in 0 to 3 loop
 					read(l1, v_xt_s(i,0)(0, j));
@@ -216,5 +218,16 @@ begin
 	xt_s <= v_xt_s;
 	ready <= '1';
 end process read_file;
+
+	check_output : process
+	begin
+		wait for 4000 ns;
+		for i in 0 to 1 loop
+			assert classify_out(0, i) = classify_out(0, i)
+				report "classify_out contains NaN"
+				severity failure;
+		end loop;
+		wait;
+	end process;
 
 end arch;

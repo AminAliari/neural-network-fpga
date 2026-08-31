@@ -37,11 +37,13 @@ begin
 
 	begin
 		if (rising_edge(clk)) then
-			t0 := matrix_mul(xt, wo);
-			t1 := matrix_mul(ht_1, uo);
-			t0:= matrix_add(t0, t1);
-			t0 := matrix_add(t0, bo);
-			sig_in <= t0;
+			if en = '1' then
+				t0 := matrix_mul(xt, wo);
+				t1 := matrix_mul(ht_1, uo);
+				t0:= matrix_add(t0, t1);
+				t0 := matrix_add(t0, bo);
+				sig_in <= t0;
+			end if;
 		end if;
 	end process;
 end imp;

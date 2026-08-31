@@ -73,6 +73,10 @@ variable t: farray(0 to a'length(1)-1, 0 to b'length(2)-1);
 variable row, column: integer;
 
 begin
+	assert (a'length(1) = b'length(1)) and (a'length(2) = b'length(2))
+		report "matrix_add dimension mismatch"
+		severity failure;
+
 	row := a'length(1)-1;
 	column := b'length(2)-1;
 
@@ -91,6 +95,10 @@ variable t: farray(0 to a'length(1)-1, 0 to b'length(2)-1);
 variable row, column: integer;
 
 begin
+	assert (a'length(1) = b'length(1)) and (a'length(2) = b'length(2))
+		report "matrix_element_mul dimension mismatch"
+		severity failure;
+
 	row := a'length(1)-1;
 	column := b'length(2)-1;
 
@@ -109,6 +117,10 @@ variable t: farray(0 to a'length(1)-1, 0 to b'length(2)-1);
 variable a_row, a_column, b_row, b_column: integer;
 
 begin
+	assert a'length(2) = b'length(1)
+		report "matrix_mul dimension mismatch"
+		severity failure;
+
 	a_row := a'length(1)-1;
 	a_column := a'length(2) -1 ;
 	b_row := b'length(1) -1;

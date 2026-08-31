@@ -13,7 +13,7 @@ entity tanh_module is
 end tanh_module;
 
 architecture high_level_sim of tanh_module is
-  type fifo is array(0 to 3) of real;
+  type fifo is array(0 to 5) of real;
   signal internal_regs : fifo;
   begin
 
@@ -53,7 +53,24 @@ architecture high_level_sim of tanh_module is
         end if;
       end if;
     end process;
-    output <= internal_regs(3);
+
+    process(clk)
+    begin
+      if rising_edge(clk) then
+        if enable='1' then
+          internal_regs(4) <= internal_regs(3);
+        end if;
+      end if;
+    end process;
+
+    process(clk)
+    begin
+      if rising_edge(clk) then
+        if enable='1' then
+          internal_regs(5) <= internal_regs(4);
+        end if;
+      end if;
+    end process;
+    output <= internal_regs(5);
 
   end high_level_sim;
-

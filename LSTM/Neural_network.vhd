@@ -13,7 +13,7 @@ entity Neural_netowrk is
 
 	port (
 		clk : in std_logic;
-		xt_s: in  matrix_1_4_array (0 to 19, 0 to 0);
+		xt_s: in  matrix_1_4_array (0 to n-1, 0 to 0);
 		uc, uo, ui, uf: in matrix_8_8;
 		wc, wo, wi, wf: in matrix_4_8;
 		bo, bi, bf, bc: in matrix_1_8;

@@ -22,10 +22,12 @@ architecture imp of CT_module is
 
 		begin
 			if (rising_edge(clk)) then
-				t0 := matrix_element_mul(ft, ct_1);
-				t1 := matrix_element_mul(it, nct);
-				t0:= matrix_add(t0, t1);
-				ct <= t0;
+				if en = '1' then
+					t0 := matrix_element_mul(ft, ct_1);
+					t1 := matrix_element_mul(it, nct);
+					t0:= matrix_add(t0, t1);
+					ct <= t0;
+				end if;
 			end if;
 		end process;
 	end imp;

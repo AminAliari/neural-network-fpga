@@ -35,8 +35,10 @@ begin
 	
 	begin
 		if (rising_edge(clk)) then
-			t0 := matrix_mul(ht, weight);
-			sig_in <= matrix_add(biases, t0);
+			if en = '1' then
+				t0 := matrix_mul(ht, weight);
+				sig_in <= matrix_add(biases, t0);
+			end if;
 		end if;
 	end process;
 end imp;
