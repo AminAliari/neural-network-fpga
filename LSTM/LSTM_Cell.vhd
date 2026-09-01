@@ -80,7 +80,7 @@ end component;
 component HT_module is
 port (
 	en, clk : in std_logic;
-	nct, ot : in matrix_1_8;
+	ct, ot : in matrix_1_8;
 	ht: out matrix_1_8
 	);
 end component;
@@ -94,7 +94,7 @@ begin
 	ut_output: Output port map('1', clk, uo, wo, xt, ht_1, bo, ot_from_output);
 
 	ut_ct: CT_module port map ('1', clk, ft_from_forget, ct_1, nct_from_condidate, it_from_input, ct);
-	ut_ht: HT_module port map ('1', clk, nct_from_condidate, ot_from_output, ht);
+	ut_ht: HT_module port map ('1', clk, ct, ot_from_output, ht);
 
 	ready <= '1';
 end arch;
