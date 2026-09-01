@@ -52,7 +52,7 @@ begin
 		wait for 50 ns;
 	end process clk_gen;
 
-	read_file : process(start) is
+	read_file : process is
 	variable l1: line;                               
 	variable v1: real;                        
 	file f1: text open read_mode is "data.txt";
@@ -66,6 +66,7 @@ begin
 	variable v_weight:  matrix_8_2;
 
 	begin
+		wait until start = '1';
 		l_counter := 0;
 		reading_type := t_wi;
 		ready <= '0';

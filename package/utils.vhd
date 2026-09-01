@@ -32,7 +32,7 @@ package body utils is
 -- operators
 function "+" (l: farray; r : real) return farray is
 
-variable t : farray;
+variable t : farray(l'range(1), l'range(2));
 variable row, column: integer;
 
 begin
@@ -50,7 +50,7 @@ end;
 
 function "+" (l: real; r : farray) return farray is
 
-variable t : farray;
+variable t : farray(r'range(1), r'range(2));
 variable row, column: integer;
 
 begin
